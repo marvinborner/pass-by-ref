@@ -82,5 +82,13 @@ pre {
 }
 
 .reveal .hljs.has-highlights tr:not(.highlight-line) {
-    opacity: 0.3 !important;
+    opacity: 0.4 !important;
+}
+
+code.console {
+    background-color: black;
+    color: green;
+    display: inline-block;
+    text-align: left !important;
+    width: var(--slide-width);
 }

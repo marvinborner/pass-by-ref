@@ -32,7 +32,7 @@
                     <h2>Call by value</h2>
                     <p class="fragment">Der Standard in den meisten Sprachen</p>
                     <pre class="fragment">
-                    <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                    <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10|1-11"><script type="text/template">
                     private static void ErhoeheZahl(int zahl)
                     {
                         zahl += 42;
@@ -40,11 +40,15 @@
 
                     static void Main(string[] args)
                     {
-                        int zahl = 0;
-                        ErhoeheZahl(zahl);
-                        Console.WriteLine(zahl.ToString());
+                        int bla = 0;
+                        ErhoeheZahl(bla);
+                        Console.WriteLine(bla);
                     }</script></code></pre>
-                    <small><code class="fragment">[C#-Console] 0</code></small>
+                    <small
+                        ><code class="fragment console"
+                            >[C#-Console] 0</code
+                        ></small
+                    >
                 </section>
 
                 <section>
@@ -56,7 +60,7 @@
                         umgesetzt werden
                     </p>
                     <pre class="fragment">
-                    <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                    <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10|1-11"><script type="text/template">
                     private static void ErhoeheZahl(ref int zahl)
                     {
                         zahl += 42;
@@ -64,19 +68,23 @@
 
                     static void Main(string[] args)
                     {
-                        int zahl = 0;
-                        ErhoeheZahl(ref zahl);
-                        Console.WriteLine(zahl.ToString());
+                        int bla = 0;
+                        ErhoeheZahl(ref bla);
+                        Console.WriteLine(bla);
                     }</script></code></pre>
-                    <small><code class="fragment">[C#-Console] 42</code></small>
+                    <small
+                        ><code class="fragment console"
+                            >[C#-Console] 42</code
+                        ></small
+                    >
                 </section>
 
                 <section>
-                    <h2>C# Besonderheiten</h2>
+                    <h3>Besonderheiten - Objekte</h3>
 
                     <section>
                         <pre class="fragment">
-                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11|1-12"><script type="text/template">
                         private static void FuegeHinzu(List<int> liste)
                         {
                             liste.Add(4);
@@ -87,17 +95,19 @@
                         {
                             List<int> liste = new List<int>() { 1, 2, 3 };
                             FuegeHinzu(liste);
-                            Console.WriteLine(liste.Count.ToString());
+                            Console.WriteLine(string.Join(", ", liste));
                         }</script></code>
                         </pre>
                         <small
-                            ><code class="fragment">[C#-Console] 5</code></small
+                            ><code class="fragment console"
+                                >[C#-Console] 1, 2, 3, 4, 5</code
+                            ></small
                         >
                     </section>
 
                     <section>
                         <pre>
-                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11|1-12"><script type="text/template">
                         private static void UeberschreibeListe(List<int> liste)
                         {
                             liste = new List<int>();
@@ -108,17 +118,19 @@
                         {
                             List<int> liste = new List<int>() { 1, 2, 3 };
                             FuegeHinzu(liste);
-                            Console.WriteLine(liste.Count.ToString());
+                            Console.WriteLine(string.Join(", ", liste));
                         }</script></code>
                         </pre>
                         <small
-                            ><code class="fragment">[C#-Console] 3</code></small
+                            ><code class="fragment console"
+                                >[C#-Console] 1, 2, 3</code
+                            ></small
                         >
                     </section>
 
                     <section>
                         <pre>
-                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11|1-12"><script type="text/template">
                         private static void UeberschreibeListe(ref List<int> liste)
                         {
                             liste = new List<int>();
@@ -129,17 +141,22 @@
                         {
                             List<int> liste = new List<int>() { 1, 2, 3 };
                             FuegeHinzu(ref liste);
-                            Console.WriteLine(liste.Count.ToString());
+                            Console.WriteLine(string.Join(", ", liste));
                         }</script></code>
                         </pre>
                         <small
-                            ><code class="fragment">[C#-Console] 1</code></small
+                            ><code class="fragment console"
+                                >[C#-Console] 42</code
+                            ></small
                         >
                     </section>
+                </section>
 
+                <section>
+                    <h3>Besonderheiten - Arrays</h3>
                     <section>
                         <pre>
-                        <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10|1-11"><script type="text/template">
                         private static void BearbeiteFeld(int[] felder)
                         {
                             felder[0] = 42;
@@ -149,11 +166,11 @@
                         {
                             int[] felder = new int[] { 1, 2, 3 };
                             BearbeiteFeld(felder);
-                            Console.WriteLine(felder[0].ToString());
+                            Console.WriteLine(felder[0]);
                         }</script></code>
                         </pre>
                         <small
-                            ><code class="fragment"
+                            ><code class="fragment console"
                                 >[C#-Console] 42</code
                             ></small
                         >
@@ -161,28 +178,29 @@
 
                     <section>
                         <pre>
-                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10|1-11"><script type="text/template">
                         private static void UeberschreibeFelder(int[] felder)
                         {
                             felder = new int[] { 4, 5, 6 };
-                            felder[0] = 42;
                         }
 
                         static void Main(string[] args)
                         {
                             int[] felder = new int[] { 1, 2, 3 };
                             UeberschreibeFelder(felder);
-                            Console.WriteLine(felder[0].ToString());
+                            Console.WriteLine(felder[0]);
                         }</script></code>
                         </pre>
                         <small
-                            ><code class="fragment">[C#-Console] 1</code></small
+                            ><code class="fragment console"
+                                >[C#-Console] 1</code
+                            ></small
                         >
                     </section>
 
                     <section>
                         <pre>
-                        <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10|1-11"><script type="text/template">
                         private static void UeberschreibeFelder(ref int[] felder)
                         {
                             felder = new int[] { 4, 5, 6 };
@@ -192,13 +210,40 @@
                         {
                             int[] felder = new int[] { 1, 2, 3 };
                             UeberschreibeFelder(ref felder);
-                            Console.WriteLine(felder[0].ToString());
+                            Console.WriteLine(felder[0]);
                         }</script></code>
                         </pre>
                         <small
-                            ><code class="fragment">[C#-Console] 4</code></small
+                            ><code class="fragment console"
+                                >[C#-Console] 4</code
+                            ></small
                         >
                     </section>
+                </section>
+
+                <section>
+                    <h2>Mehrere Rückgabewerte</h2>
+                    <pre>
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-13|10|1-6,11|12|1-13"><script type="text/template">
+                        private static void Rueckgabe(ref int a, ref int b, ref int c)
+                        {
+                            a = 1;
+                            b = 2;
+                            c = 3;
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            int a = 0, b = 0, c = 0;
+                            Rueckgabe(ref a, ref b, ref c);
+                            Console.WriteLine(a + ", " + b + ", " + c);
+                        }</script></code>
+                        </pre>
+                    <small
+                        ><code class="fragment console"
+                            >[C#-Console] 1, 2, 3</code
+                        ></small
+                    >
                 </section>
 
                 <section>
@@ -239,36 +284,11 @@
                 </section>
 
                 <section>
-                    <h2>Mehrere Rückgabewerte</h2>
-                    <pre>
-                        <code class="c# hljs cs" data-trim data-line-numbers="1-13|10|1-6,11|12"><script type="text/template">
-                        private static void Rueckgabe(ref int a, ref int b, ref int c)
-                        {
-                            a = 1;
-                            b = 2;
-                            c = 3;
-                        }
-
-                        static void Main(string[] args)
-                        {
-                            int a = 0, b = 0, c = 0;
-                            Rueckgabe(ref a, ref b, ref c);
-                            Console.WriteLine(a + ", " + b + ", " + c);
-                        }</script></code>
-                        </pre>
-                    <small
-                        ><code class="fragment"
-                            >[C#-Console] 1, 2, 3</code
-                        ></small
-                    >
-                </section>
-
-                <section>
                     <h2>Andere Sprachen</h2>
                     <section>
                         <h3>C</h3>
                         <pre class="fragment">
-                        <code class="c hljs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                        <code class="c hljs" data-trim data-line-numbers="1-11|8|1-4,9|10|1-11"><script type="text/template">
                         static void bearbeite_zeiger(int *zeiger)
                         {
                             *zeiger = 42;
@@ -282,14 +302,16 @@
                         }</script></code>
                         </pre>
                         <small
-                            ><code class="fragment">[C-Console] 42</code></small
+                            ><code class="fragment console"
+                                >[C-Console] 42</code
+                            ></small
                         >
                     </section>
 
                     <section>
                         <h3>JavaScript</h3>
                         <pre>
-                        <code class="js hljs" data-trim data-line-numbers="1-11|9|1-3,10|5-7,11"><script type="text/template">
+                        <code class="js hljs" data-trim data-line-numbers="1-11|9|1-3,10|5-7,11|1-11"><script type="text/template">
                         function ersetzen(obj) {
                             obj = {}; // Verändert das originale Objekt nicht
                         }
