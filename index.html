@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+
+        <title>reveal.js</title>
+
+        <link rel="stylesheet" href="dist/reset.css" />
+        <link rel="stylesheet" href="dist/reveal.css" />
+        <link rel="stylesheet" href="dist/theme/blood.css" id="theme" />
+
+        <!-- Theme used for syntax highlighted code -->
+        <link
+            rel="stylesheet"
+            href="plugin/highlight/monokai.css"
+            id="highlight-theme"
+        />
+    </head>
+    <body>
+        <div class="reveal">
+            <div class="slides">
+                <section>
+                    <h2>Call by value<br />vs.<br />Call by reference</h2>
+                    <small>Marvin Borner</small>
+                </section>
+
+                <section>
+                    <h2>Call by value</h2>
+                    <p class="fragment">Der Standard in den meisten Sprachen</p>
+                    <pre class="fragment">
+                    <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                    private static void ErhoeheZahl(int zahl)
+                    {
+                        zahl += 42;
+                    }
+
+                    static void Main(string[] args)
+                    {
+                        int zahl = 0;
+                        ErhoeheZahl(zahl);
+                        Console.WriteLine(zahl.ToString());
+                    }</script></code></pre>
+                    <small><code class="fragment">[C#-Console] 0</code></small>
+                </section>
+
+                <section>
+                    <h2>Call by reference</h2>
+                    <p class="fragment">Wird meist bewusst verwendet</p>
+                    <p class="fragment">
+                        Kann in C# mit dem
+                        <code style="color: #ffff55">ref</code> keyword
+                        umgesetzt werden
+                    </p>
+                    <pre class="fragment">
+                    <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                    private static void ErhoeheZahl(ref int zahl)
+                    {
+                        zahl += 42;
+                    }
+
+                    static void Main(string[] args)
+                    {
+                        int zahl = 0;
+                        ErhoeheZahl(ref zahl);
+                        Console.WriteLine(zahl.ToString());
+                    }</script></code></pre>
+                    <small><code class="fragment">[C#-Console] 42</code></small>
+                </section>
+
+                <section>
+                    <h2>C# Besonderheiten</h2>
+
+                    <section>
+                        <pre class="fragment">
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        private static void FuegeHinzu(List<int> liste)
+                        {
+                            liste.Add(4);
+                            liste.Add(5);
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            List<int> liste = new List<int>() { 1, 2, 3 };
+                            FuegeHinzu(liste);
+                            Console.WriteLine(liste.Count.ToString());
+                        }</script></code>
+                        </pre>
+                        <small
+                            ><code class="fragment">[C#-Console] 5</code></small
+                        >
+                    </section>
+
+                    <section>
+                        <pre>
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        private static void UeberschreibeListe(List<int> liste)
+                        {
+                            liste = new List<int>();
+                            liste.Add(42);
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            List<int> liste = new List<int>() { 1, 2, 3 };
+                            FuegeHinzu(liste);
+                            Console.WriteLine(liste.Count.ToString());
+                        }</script></code>
+                        </pre>
+                        <small
+                            ><code class="fragment">[C#-Console] 3</code></small
+                        >
+                    </section>
+
+                    <section>
+                        <pre>
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        private static void UeberschreibeListe(ref List<int> liste)
+                        {
+                            liste = new List<int>();
+                            liste.Add(42);
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            List<int> liste = new List<int>() { 1, 2, 3 };
+                            FuegeHinzu(ref liste);
+                            Console.WriteLine(liste.Count.ToString());
+                        }</script></code>
+                        </pre>
+                        <small
+                            ><code class="fragment">[C#-Console] 1</code></small
+                        >
+                    </section>
+
+                    <section>
+                        <pre>
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                        private static void BearbeiteFeld(int[] felder)
+                        {
+                            felder[0] = 42;
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            int[] felder = new int[] { 1, 2, 3 };
+                            BearbeiteFeld(felder);
+                            Console.WriteLine(felder[0].ToString());
+                        }</script></code>
+                        </pre>
+                        <small
+                            ><code class="fragment"
+                                >[C#-Console] 42</code
+                            ></small
+                        >
+                    </section>
+
+                    <section>
+                        <pre>
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-12|9|1-5,10|11"><script type="text/template">
+                        private static void UeberschreibeFelder(int[] felder)
+                        {
+                            felder = new int[] { 4, 5, 6 };
+                            felder[0] = 42;
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            int[] felder = new int[] { 1, 2, 3 };
+                            UeberschreibeFelder(felder);
+                            Console.WriteLine(felder[0].ToString());
+                        }</script></code>
+                        </pre>
+                        <small
+                            ><code class="fragment">[C#-Console] 1</code></small
+                        >
+                    </section>
+
+                    <section>
+                        <pre>
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                        private static void UeberschreibeFelder(ref int[] felder)
+                        {
+                            felder = new int[] { 4, 5, 6 };
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            int[] felder = new int[] { 1, 2, 3 };
+                            UeberschreibeFelder(ref felder);
+                            Console.WriteLine(felder[0].ToString());
+                        }</script></code>
+                        </pre>
+                        <small
+                            ><code class="fragment">[C#-Console] 4</code></small
+                        >
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Vorteile von call by reference</h2>
+                        <ul>
+                            <li class="fragment">
+                                Muss nicht extra kopiert werden (weniger
+                                Overhead)
+                            </li>
+                            <ul>
+                                <li
+                                    style="list-style-type: none"
+                                    class="fragment"
+                                >
+                                    &rarr; schneller
+                                </li>
+                            </ul>
+                            <li class="fragment">
+                                Eine Funktion kann mehrere Rückgabewerte
+                                besitzen
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Nachteile von call by reference</h2>
+                        <ul>
+                            <li class="fragment">
+                                Teilweise nicht sehr lesbar/verständlich
+                            </li>
+                            <li class="fragment">
+                                Probleme mit Garbage Collectors und
+                                Multi-Threading
+                            </li>
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Mehrere Rückgabewerte</h2>
+                    <pre>
+                        <code class="c# hljs cs" data-trim data-line-numbers="1-13|10|1-6,11|12"><script type="text/template">
+                        private static void Rueckgabe(ref int a, ref int b, ref int c)
+                        {
+                            a = 1;
+                            b = 2;
+                            c = 3;
+                        }
+
+                        static void Main(string[] args)
+                        {
+                            int a = 0, b = 0, c = 0;
+                            Rueckgabe(ref a, ref b, ref c);
+                            Console.WriteLine(a + ", " + b + ", " + c);
+                        }</script></code>
+                        </pre>
+                    <small
+                        ><code class="fragment"
+                            >[C#-Console] 1, 2, 3</code
+                        ></small
+                    >
+                </section>
+
+                <section>
+                    <h2>Andere Sprachen</h2>
+                    <section>
+                        <h3>C</h3>
+                        <pre class="fragment">
+                        <code class="c hljs" data-trim data-line-numbers="1-11|8|1-4,9|10"><script type="text/template">
+                        static void bearbeite_zeiger(int *zeiger)
+                        {
+                            *zeiger = 42;
+                        }
+
+                        void main(int argc, char **argv)
+                        {
+                            int zahl = 0;
+                            bearbeite_zeiger(&zahl);
+                            printf("%d\n", zahl);
+                        }</script></code>
+                        </pre>
+                        <small
+                            ><code class="fragment">[C-Console] 42</code></small
+                        >
+                    </section>
+
+                    <section>
+                        <h3>JavaScript</h3>
+                        <pre>
+                        <code class="js hljs" data-trim data-line-numbers="1-11|9|1-3,10|5-7,11"><script type="text/template">
+                        function ersetzen(obj) {
+                            obj = {}; // Verändert das originale Objekt nicht
+                        }
+
+                        function bearbeiten(obj) {
+                            obj.key = "Aaah"; // Verändert das originale Objekt
+                        }
+
+                        const toll = { key: "hihi" };
+                        ersetzen(toll); // obj.key => "hihi"
+                        bearbeiten(toll); // obj.key => "Aaah"
+                        </script></code>
+                        </pre>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Danke für ihre Aufmerksamkeit, tschüss!</h2>
+                </section>
+            </div>
+        </div>
+
+        <script src="dist/reveal.js"></script>
+        <script src="plugin/notes/notes.js"></script>
+        <script src="plugin/markdown/markdown.js"></script>
+        <script src="plugin/highlight/highlight.js"></script>
+        <script>
+            // More info about initialization & config:
+            // - https://revealjs.com/initialization/
+            // - https://revealjs.com/config/
+            Reveal.initialize({
+                controls: false,
+                hash: true,
+
+                // Learn about plugins: https://revealjs.com/plugins/
+                plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+            });
+
+            (() => {
+                document.getElementsByTagName("pre").forEach((e) => {
+                    if (e.firstChild.nodeType == 3) e.firstChild.remove();
+                });
+
+                document.getElementsByTagName("code").forEach((e) => {
+                    if (e.nextSibling.nodeType == 3) e.nextSibling.remove();
+                });
+            })();
+        </script>
+    </body>
+</html>
